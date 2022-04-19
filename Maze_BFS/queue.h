@@ -13,23 +13,23 @@ typedef struct queue* Queue;
 typedef int Item;
 
 struct node {
-	Item data;
+	Item x, y;
 	Node next;
 };
 
 struct queue {
-	Node front;	// »èÁ¦
-	Node rear;	// »ðÀÔ
+	Node front;	
+	Node rear;	
 	int size;
 };
 
 void Terminate(const char*);
 Node Create_node();
 Queue Create_queue();
-void Enqueue(Queue, Item);
-Item Dequeue(Queue);
+void Enqueue(Queue, Pos);
+Pos Dequeue(Queue);
 void Destroy_node(Queue);
 void Destroy_queue(Queue);
-Item Peek(Queue queue);
+Pos Peek(Queue queue);
 bool Is_empty(Queue);
 void Print_queue(Queue);

@@ -1,4 +1,5 @@
 ﻿#include "queue.h"
+#include "maze.h"
 
 typedef struct node* Node;
 typedef struct queue* Queue;
@@ -15,7 +16,8 @@ Node Create_node()
 	if (new_node == NULL)
 		terminate("Error in Create_node : Node could not be created.");
 
-	new_node->data = NULL;
+	new_node->x = 0;
+	new_node->y = 0;
 	new_node->next = NULL;
 
 	return new_node;
@@ -34,10 +36,11 @@ Queue Create_queue()
 	return new_queue;
 }
 
-void Enqueue(Queue queue, Item data)
+void Enqueue(Queue queue, Pos cur)
 {
 	Node new_node = Create_node();
-	new_node->data = data;
+	new_node->x = cur.x;
+	new_node->y = cur.y;
 
 	if (Is_empty(queue)) {
 		queue->front = new_node;
@@ -51,14 +54,16 @@ void Enqueue(Queue queue, Item data)
 	queue->size++;
 }
 
-Item Dequeue(Queue queue)
+Pos Dequeue(Queue queue)
 {
 	if (Is_empty(queue))
 		terminate("Error in Peek : Queue is empty.");
 
 	Node Front_node = queue->front;
 	Node Rear_node = queue->rear;
-	Item old_data = Front_node->data;
+	Pos old_cur;
+	old_cur.x = Front_node->x;
+	old_cur.y = Front_node->y;
 
 	queue->front = Front_node->next;
 	queue->size--;
@@ -69,14 +74,15 @@ Item Dequeue(Queue queue)
 	if (Is_empty(queue))
 		Destroy_queue(queue);
 
-	return old_data;
+	return old_cur;
 }
 
 void Destroy_node(Node Front_node)
 {
 	free(Front_node);
 	Front_node->next = NULL;
-	Front_node->data = NULL;
+	Front_node->x = NULL;
+	Front_node->y = NULL;
 }
 
 // 큐 삭제할때 버그...
@@ -88,12 +94,15 @@ void Destroy_queue(Queue queue)
 	queue->size = 0;
 }
 
-Item Peek(Queue queue)
+Pos Peek(Queue queue)
 {
 	if (Is_empty(queue))
 		terminate("Error in Peek : Queue is empty.");
+	Pos cur;
+	cur.x = queue->front->x;
+	cur.y = queue->front->y;
 
-	return queue->front->data;
+	return cur;
 }
 
 bool Is_empty(Queue queue)
@@ -111,11 +120,11 @@ void Print_queue(Queue queue)
 		Node Rear_node = queue->rear;
 		Node node = queue->front;
 
-		printf("Front node : %d\n", Front_node->data);
-		printf("Rear node : %d\n", Rear_node->data);
+		printf("Front node : (%d, %d)\n", Front_node->x, Front_node->y);
+		printf("Rear node : (%d, %d)\n", Rear_node->x, Rear_node->y);
 
 		for (int i = 0; i < queue->size; i++) {
-			printf("%d", node->data);
+			printf("(%d, %d)", node->x, node->y);
 			node = node->next;
 
 			if (i == queue->size - 1)
