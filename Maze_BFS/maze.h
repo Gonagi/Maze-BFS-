@@ -12,7 +12,7 @@ typedef struct Position {
 int Maze[MAX][MAX];
 
 bool Movable(Pos, int);
-pos Move_to(Pos, int);
+Pos Move_to(Pos, int);
 bool Find_way(Pos);
 
 #endif
