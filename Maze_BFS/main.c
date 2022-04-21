@@ -1,5 +1,5 @@
 #include <Windows.h>
-#include "maze.h"
+#include "queue.h"
 
 #define PATH 0			// 지나갈 수 있는 위치			// 초록
 #define WALL 1			// 지나갈 수 없는 위치			// 빨강
@@ -11,9 +11,17 @@ enum ColorType { WHITE = 15, BLACK = 0, RED = 4, BLUE = 9, GREEN = 10}COLOR;    
 
 int main()
 {
+	Pos cur;
+
 	Read_maze();
-	Print_maze();
-	return 0;
+	while (1) {
+		if (Find_way(cur)) {
+			printf("End.\n");
+			break;
+		}
+
+		Print_maze();
+	}
 }
 
 void Read_maze()
