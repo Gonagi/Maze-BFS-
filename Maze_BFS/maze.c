@@ -13,24 +13,20 @@ bool Movable(Pos cur, int dir)
 		return false;
 	else if (Maze[cur.x][cur.y] == 1 || Maze[cur.x][cur.y] < 0)	// 빨간색 or 파란색
 		return false;
-	else if (Maze[cur.x][cur.y] == 0)
+	else if (Maze[cur.x][cur.y] == 0)	// 초록색
 		return true;
-
-	switch (Maze[cur.x][cur.y]) {
-	case 0: return true;	// 초록색
-	case 1: return false;	// 빨간색
-	case 2
-	}
-
-	else if (Maze[cur.x][cur.y] == 0)  
-		return true;
-	else 
-		return false;
 }
 
-void Move_to(Pos cur, int dir)
+Pos Move_to(Pos cur, int dir)
 {
-	
+	switch (dir) {
+		case 0:	cur.x--; break; // 북
+		case 1:	cur.y++; break; // 동
+		case 2:	cur.x++; break; // 남
+		case 3:	cur.y--; break; // 서
+	}
+
+	return cur;
 }
 
 bool Find_way(Pos cur)
