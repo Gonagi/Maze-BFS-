@@ -1,12 +1,12 @@
 ﻿#ifndef __QUEUE_H__
 #define __QUEUE_H__
 
-#endif
+#define _CRTDBG_MAP_ALLOC
 #include <stdio.h>
 #include <stdbool.h>
-#define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>
 #include <crtdbg.h>
+#include "maze.h"
 
 typedef struct node* Node;
 typedef struct queue* Queue;
@@ -18,8 +18,8 @@ struct node {
 };
 
 struct queue {
-	Node front;	
-	Node rear;	
+	Node front;
+	Node rear;
 	int size;
 };
 
@@ -33,3 +33,5 @@ void Destroy_queue(Queue);
 Pos Peek(Queue queue);
 bool Is_empty(Queue);
 void Print_queue(Queue);
+
+#endif
