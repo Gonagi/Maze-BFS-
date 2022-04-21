@@ -79,13 +79,10 @@ void Print_maze()
 void Print_final_way(Pos cur)
 {
 	printf("\nFinal way\n");
-	// while ((cur.x != 0) && (cur.y != 0)) {
-	while(1){
+	while ((cur.x != 0) || (cur.y != 0)) 
 		cur = Move_to_low_number(cur);
-		if (cur.x == 0 && cur.y == 0)
-			break;
-	}
-	Maze[0][0] = 2;
+
+	Maze[cur.x][cur.y] = 2;
 }
 
 void Textcolor(int forground, int background)
