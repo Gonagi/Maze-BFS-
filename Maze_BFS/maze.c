@@ -9,7 +9,20 @@ bool Movable(Pos cur, int dir)
 		case 3:	cur.y--; break; // 서
 	}
 
-	if (Maze[cur.x][cur.y] == 0)  
+	if (cur.x < 0 || cur.y < 0 || cur.x >= MAX || cur.y >= MAX)	// 범위 벗어났다면
+		return false;
+	else if (Maze[cur.x][cur.y] == 1 || Maze[cur.x][cur.y] < 0)	// 빨간색 or 파란색
+		return false;
+	else if (Maze[cur.x][cur.y] == 0)
+		return true;
+
+	switch (Maze[cur.x][cur.y]) {
+	case 0: return true;	// 초록색
+	case 1: return false;	// 빨간색
+	case 2
+	}
+
+	else if (Maze[cur.x][cur.y] == 0)  
 		return true;
 	else 
 		return false;
@@ -17,7 +30,7 @@ bool Movable(Pos cur, int dir)
 
 void Move_to(Pos cur, int dir)
 {
-
+	
 }
 
 bool Find_way(Pos cur)
