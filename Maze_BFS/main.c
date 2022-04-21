@@ -11,13 +11,28 @@ enum ColorType { WHITE = 15, BLACK = 0, RED = 4, BLUE = 9, GREEN = 10}COLOR;    
 
 int main()
 {
-	Pos cur;
-
+	Queue queue = Create_queue();
+	Pos cur, Save;
+	cur.x = 0; cur.y = 0;
+	Enqueue(queue, cur);
+	
 	Read_maze();
-	while (1) {
+	Maze[cur.x][cur.y] = -1;	// 지나온 길 (파란색)
+
+	while (!Is_empty(queue)){
+		cur = Dequeue(queue);
+
 		if (Find_way(cur)) {
 			printf("End.\n");
 			break;
+		}
+
+		for (int dir = 0; dir < 4; dir++) {
+			if (Movable(cur, dir)) {
+				Save = Move_to(cur, dir);
+				Maze[Save.x][Save.y] = Maze[cur.x][cur.y] - 1;
+				Enqueue(queue, Save);
+			}
 		}
 
 		Print_maze();
@@ -52,6 +67,7 @@ void Print_maze()
 		Textcolor(WHITE, BLACK);
 		printf("\n");
 	}
+	printf("\n");
 }
 
 
