@@ -1,8 +1,4 @@
 ﻿#include "queue.h"
-#include "maze.h"
-
-typedef struct node* Node;
-typedef struct queue* Queue;
 
 void Terminate(const char* message)
 {
@@ -71,8 +67,8 @@ Pos Dequeue(Queue queue)
 	Destroy_node(Front_node);
 
 	// 큐 삭제하고 다시 할당할때 버그....
-	if (Is_empty(queue))
-		Destroy_queue(queue);
+	//if (Is_empty(queue))
+	//	Destroy_queue(queue);
 
 	return old_cur;
 }
