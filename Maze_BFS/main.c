@@ -3,11 +3,13 @@
 
 #define PATH 0			// 지나갈 수 있는 위치			// 초록
 #define WALL 1			// 지나갈 수 없는 위치			// 빨강
+#define WAY 2			// 최종 길						// 노랑
 
 void Read_maze();
 void Print_maze();
+void Print_final_way(Pos);
 void Textcolor(int, int);
-enum ColorType { WHITE = 15, BLACK = 0, RED = 4, BLUE = 9, GREEN = 10}COLOR;    // 흰 검 빨 파 초 
+enum ColorType { WHITE = 15, BLACK = 0, RED = 4, BLUE = 9, GREEN = 10, YELLOW = 14}COLOR;    // 흰 검 빨 파 초 sh
 
 int main()
 {
@@ -37,6 +39,9 @@ int main()
 
 		Print_maze();
 	}
+	Print_final_way(cur);
+	Print_maze();
+	int a = 0;
 }
 
 void Read_maze()
@@ -63,6 +68,7 @@ void Print_maze()
 			if (Maze[i][j] == 0) { Textcolor(BLACK, GREEN); printf("□"); }		// 갈 수 있는 길 (초록색)
 			else if (Maze[i][j] == 1) { Textcolor(BLACK, RED); printf("□"); }	// 갈 수 없는 길 (빨간색)
 			else if (Maze[i][j] < 0) { Textcolor(BLACK, BLUE); printf("□"); }	// 지나온 길	(파란색)
+			else if (Maze[i][j] == 2) { Textcolor(BLACK, YELLOW); printf("□"); }	// 최종 길 (노란색)
 		}
 		Textcolor(WHITE, BLACK);
 		printf("\n");
@@ -70,6 +76,17 @@ void Print_maze()
 	printf("\n");
 }
 
+void Print_final_way(Pos cur)
+{
+	printf("\nFinal way\n");
+	// while ((cur.x != 0) && (cur.y != 0)) {
+	while(1){
+		cur = Move_to_low_number(cur);
+		if (cur.x == 0 && cur.y == 0)
+			break;
+	}
+	Maze[0][0] = 2;
+}
 
 void Textcolor(int forground, int background)
 {
