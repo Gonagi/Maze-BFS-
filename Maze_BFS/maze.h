@@ -13,6 +13,7 @@ int Maze[MAX][MAX];
 
 bool Movable(Pos, int);
 Pos Move_to(Pos, int);
+Pos Move_to_low_number(Pos);
 bool Find_way(Pos);
 
 #endif

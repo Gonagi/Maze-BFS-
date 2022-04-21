@@ -29,6 +29,22 @@ Pos Move_to(Pos cur, int dir)
 	return cur;
 }
 
+Pos Move_to_low_number(Pos cur) 
+{
+	int low_num = Maze[cur.x][cur.y]+1;
+	Maze[cur.x][cur.y] = 2;	// 노란색
+
+	if (Maze[cur.x - 1][cur.y] == low_num)	// 북
+		cur.x--;
+	else if (Maze[cur.x][cur.y + 1] == low_num)	// 동
+		cur.y++;
+	else if (Maze[cur.x + 1][cur.y] == low_num)	// 남
+		cur.x++;
+	else if (Maze[cur.x][cur.y - 1] == low_num)	// 서
+		cur.y--;
+	return cur;
+}
+
 bool Find_way(Pos cur)
 {
 	return cur.x == MAX - 1 && cur.y == MAX - 1;
